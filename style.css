@@ -1,0 +1,17 @@
+.agenda{
+    width: 350px
+}
+.titulo{
+    text-align: center;
+    background-color: aquamarine;
+}
+.day{
+    display: inline-block;
+    width: 45px;
+    text-align: right;
+}
+
+.today {
+    background-color: blue;
+    color: #fff;
+}
