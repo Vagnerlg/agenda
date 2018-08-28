@@ -1,28 +1,30 @@
 const agenda = document.querySelector('.dias');
 
-const date = new Date();
 const today = new Date();
-date.setDate(1);
-const month = date.getMonth();
 const dayTime = 60 * 60 * 24 * 1000;
 
-tituloAgenda( date );
+const btnAfter = document.querySelector('.btn-alter-month');
+btnAfter.addEventListener('click',changeMonth);
+const btnBefore = document.querySelector('.btn-before-month');
+btnBefore.addEventListener('click',changeMonth);
 
-let week = 0;
-while( date.getMonth() == month || week <= 6) {
-    if( (date.getDate() == 1 && date.getDay() != week) || ( date.getMonth() !=  month ) ) {
-        elementWeek( week );
-    } else {
-        elementWeek( week, date );
-        date.setTime( date.getTime() + dayTime );
-    }
-    week++;
-    if(week > 6 && date.getMonth() == month ) {
-        week = 0;
-    }
+function elementMonth( date ){
+    agenda.innerHTML = '';
+    const month = date.getMonth();
+    let week = 0;
+    while( date.getMonth() == month || week <= 6) {
+        if( (date.getDate() == 1 && date.getDay() != week) || ( date.getMonth() !=  month ) ) {
+            elementWeek( week );
+        } else {
+            elementWeek( week, date );
+            date.setTime( date.getTime() + dayTime );
+        }
+        week++;
+        if(week > 6 && date.getMonth() == month ) {
+            week = 0;
+        }
+    }    
 }
-
-
 
 var elweek;
 function elementWeek( weekNumber, date ) {
@@ -41,9 +43,9 @@ function elementDay( date ) {
     el.className = 'day';
     if(date){
         el.innerHTML = date.getDate();
-        if( today.getDate() == date.getDate() ) {
+        if( today.getDate() == date.getDate() && today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() ) {
             el.className = 'day today';
-        } else if( today.getDate() > date.getDate() ) {
+        } else if( today.getTime() > date.getTime() ) {
             el.className = 'day after';
         }
     } else {
@@ -70,7 +72,13 @@ function tituloAgenda( date ){
         "Novenbro",
         "Desembro"
     ]
-    const titulo = document.querySelector('.titulo');
+    const titulo = document.querySelector('.titulo-head');
+    const alterDate = new Date(date.getFullYear(),date.getMonth());
+    alterDate.setMonth(date.getMonth() - 1);
+    const beforeDate = new Date(date.getFullYear(),date.getMonth());
+    beforeDate.setMonth(date.getMonth() + 1);
+    btnAfter.value = alterDate.getFullYear() + '-' + alterDate.getMonth();
+    btnBefore.value = beforeDate.getFullYear() + '-' + beforeDate.getMonth();
     titulo.innerHTML = mesString[date.getMonth()]  + " de " + date.getFullYear();
 }
 
@@ -92,3 +100,21 @@ function elHour( el, hour ){
     elHour.innerHTML = hour+':00';
     el.appendChild(elHour);
 }
+
+function changeMonth(ev) {
+    
+    if(!ev) {
+        const date = new Date();
+        date.setDate(1);
+        tituloAgenda( date );
+        elementMonth( date );
+    } else {
+        let stringDate = ev.target.value;
+        let strDate = stringDate.split('-');
+        const date = new Date(strDate[0],strDate[1],1);
+        tituloAgenda( date );
+        elementMonth( date );
+    }
+}
+
+changeMonth();
