@@ -43,9 +43,14 @@ function elementDay( date ) {
         el.innerHTML = date.getDate();
         if( today.getDate() == date.getDate() ) {
             el.className = 'day today';
+        } else if( today.getDate() > date.getDate() ) {
+            el.className = 'day after';
         }
     } else {
         el.className = 'day void';
+    }
+    if(el.className == 'day' || el.className == 'day today'){
+        el.addEventListener('click', elHours );
     }
     return el;
 }
@@ -67,4 +72,23 @@ function tituloAgenda( date ){
     ]
     const titulo = document.querySelector('.titulo');
     titulo.innerHTML = mesString[date.getMonth()]  + " de " + date.getFullYear();
+}
+
+function elHours(ev){
+    let divHoras = document.querySelector('.horas');
+    let horasTitulo = document.querySelector('.horas-titulo');
+    horasTitulo.innerHTML = "Horas do dia "+ev.target.innerHTML;
+    horasTitulo.style.display = 'block';
+    divHoras.innerHTML = '';
+    divHoras.innerHTML0= ev.target.innerHTML;
+    for (var i = 0; i < 24; i++) {
+        elHour( divHoras, i );
+    }
+}
+
+function elHour( el, hour ){
+    const elHour = document.createElement('div');
+    elHour.className = 'hour';
+    elHour.innerHTML = hour+':00';
+    el.appendChild(elHour);
 }

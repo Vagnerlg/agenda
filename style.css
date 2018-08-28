@@ -4,7 +4,7 @@ body{
 .app{
 	padding: 25px;
 }
-.agenda{
+.agenda, .box-horas{
     min-width: 400px;
     max-width: 600px;
     margin: auto;
@@ -28,18 +28,42 @@ body{
     margin: 2px;
     font-weight: 900;
     background: #bcd4dd;
+    cursor: pointer;
 }
 
 .day.title{
 	background-color: #2898c1;
 	color: #fff;
+	cursor: initial;
+}
+
+.after{
+	background: #ccc;
+	cursor: initial;
 }
 
 .void {
-	background: transparent;	
+	background: #fafafa;
+	margin: 2px;	
+	cursor: initial;
 }
 
 .today {
     background-color: blue;
     color: #fff;
+    cursor: pointer;
+}
+.horas{
+	display: flex;
+	flex-wrap: wrap;
+}
+.hour{
+	background-color: #76adc1;
+	width: 18%;
+	margin: 2px;
+	padding: 10px 4px;
+	text-align: right;
+}
+.horas-titulo{
+	display: none;
 }
