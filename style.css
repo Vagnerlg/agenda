@@ -16,6 +16,12 @@ body{
     margin: 2px;
     display: flex;
 	justify-content: space-between;
+	align-items: center;
+}
+
+.titulo-head{
+	font-size: 22px;
+	font-style: italic;
 }
 
 .week{
