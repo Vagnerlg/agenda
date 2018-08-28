@@ -89,7 +89,6 @@ if (! dialog.showModal) {
 dialog.querySelector('.close').addEventListener('click', function() {
   dialog.close();
 });
-document.querySelector('.btn-marcar').addEventListener('click',clickMarcar);
 
 function elHours(ev){
     let divHoras = document.querySelector('.horas');
@@ -114,9 +113,10 @@ function elHour( el, hour ){
 function clickHour( ev ){
     limpaElHour();
     ev.target.className = "hour active";
+    setTimeout( clickMarcar , 600 );
 }
 
-function clickMarcar( ev ){
+function clickMarcar(){
     let lista = document.querySelectorAll('.hour');
     for (var i = 0; lista.length > i ; i++) {
         let item = lista[i];
