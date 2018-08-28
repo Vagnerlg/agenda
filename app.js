@@ -9,16 +9,30 @@ const dayTime = 60 * 60 * 24 * 1000;
 tituloAgenda( date );
 
 let week = 0;
-while( date.getMonth() == month && week <= 6 ) {
+while( date.getMonth() == month || week <= 6) {
     if( (date.getDate() == 1 && date.getDay() != week) || ( date.getMonth() !=  month ) ) {
-        elementDay();
+        elementWeek( week );
     } else {
-        elementDay(date);
+        elementWeek( week, date );
         date.setTime( date.getTime() + dayTime );
     }
     week++;
-    if(week > 6) {
+    if(week > 6 && date.getMonth() == month ) {
         week = 0;
+    }
+}
+
+
+
+var elweek;
+function elementWeek( weekNumber, date ) {
+    if(weekNumber == 0){
+        elweek = document.createElement('div');
+        elweek.className = "week"; 
+    }
+    elweek.appendChild( elementDay( date ) );
+    if(weekNumber == 6){
+        agenda.appendChild( elweek );
     }
 }
 
@@ -30,9 +44,10 @@ function elementDay( date ) {
         if( today.getDate() == date.getDate() ) {
             el.className = 'day today';
         }
+    } else {
+        el.className = 'day void';
     }
-    
-    agenda.appendChild( el );
+    return el;
 }
 
 function tituloAgenda( date ){

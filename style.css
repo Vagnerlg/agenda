@@ -1,14 +1,42 @@
+body{
+	font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+.app{
+	padding: 25px;
+}
 .agenda{
-    width: 350px
+    min-width: 400px;
+    max-width: 600px;
+    margin: auto;
 }
 .titulo{
     text-align: center;
-    background-color: aquamarine;
+    background-color: #2898c1;
+    color: #fff;
+    padding: 10px 5px;
+    margin: 2px;
 }
+
+.week{
+	display: flex;
+}
+
 .day{
-    display: inline-block;
-    width: 45px;
+    width: 14.285714285%;
     text-align: right;
+    padding: 8px;
+    margin: 2px;
+    font-weight: 900;
+    background: #bcd4dd;
+}
+
+.day.title{
+	background-color: #2898c1;
+	color: #fff;
+}
+
+.void {
+	background: transparent;	
 }
 
 .today {
