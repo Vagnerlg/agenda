@@ -82,23 +82,57 @@ function tituloAgenda( date ){
     titulo.innerHTML = mesString[date.getMonth()]  + " de " + date.getFullYear();
 }
 
+var dialog = document.querySelector('dialog');
+if (! dialog.showModal) {
+  dialogPolyfill.registerDialog(dialog);
+}
+dialog.querySelector('.close').addEventListener('click', function() {
+  dialog.close();
+});
+document.querySelector('.btn-marcar').addEventListener('click',clickMarcar);
+
 function elHours(ev){
     let divHoras = document.querySelector('.horas');
     let horasTitulo = document.querySelector('.horas-titulo');
-    horasTitulo.innerHTML = "Horas do dia "+ev.target.innerHTML;
+    horasTitulo.innerHTML = ev.target.innerHTML + ' de '+ document.querySelector('.titulo-head').innerHTML;
     horasTitulo.style.display = 'block';
     divHoras.innerHTML = '';
-    divHoras.innerHTML0= ev.target.innerHTML;
     for (var i = 0; i < 24; i++) {
         elHour( divHoras, i );
     }
+    dialog.showModal();
 }
 
 function elHour( el, hour ){
     const elHour = document.createElement('div');
     elHour.className = 'hour';
     elHour.innerHTML = hour+':00';
+    elHour.addEventListener('click',clickHour);
     el.appendChild(elHour);
+}
+
+function clickHour( ev ){
+    limpaElHour();
+    ev.target.className = "hour active";
+}
+
+function clickMarcar( ev ){
+    let lista = document.querySelectorAll('.hour');
+    for (var i = 0; lista.length > i ; i++) {
+        let item = lista[i];
+        if(item.className == 'hour active'){
+            console.log(item.innerHTML);
+            dialog.close();
+        }
+    }
+}
+
+function limpaElHour(){
+    let lista = document.querySelectorAll('.hour');
+    for (var i = 0; lista.length > i ; i++) {
+        let item = lista[i];
+        item.className = "hour";
+    }
 }
 
 function changeMonth(ev) {
